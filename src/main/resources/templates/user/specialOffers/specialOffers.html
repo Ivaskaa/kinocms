@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text = "${title}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- Кодировка веб-страницы -->
+    <meta charset="utf-8">
+    <div th:insert="blocks/links-bootstrap"></div>
+</head>
+<body>
+<main>
+    <div th:insert="blocks/header"></div>
+    <div class="d-flex justify-content-center">
+        <ul class="container">
+            <div class="d-flex justify-content-center">
+                <h1>Special offers</h1>
+            </div>
+            <div class="col-md-8">
+                <div th:each="el : ${specialOffers}" class="panel blog-container p-5">
+                    <div class="panel-body">
+                        <h3 th:text="${el.name}"></h3>
+                        <div class="d-flex justify-content-between">
+                            <div th:if="${el.photo != null}" class="image-wrapper">
+                                <img width="400px" th:src="'/img/' + ${el.photo}">
+                            </div>
+                            <div class="p-3">
+                                <p th:text="'Description: ' +${el.description}"></p>
+                                <a th:href="'/user/specialOffers/' + ${el.id} + '/info'" class="btn btn-info">Info</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center">
+                <ul th:if="${specialOffers.isEmpty() == false}" class="pagination p-3" >
+                    <li class="page-item">
+                        <a class="page-link" th:height="100px" th:if="${currentPage > 1}" th:href="@{/user/specialOffers/1}">First</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" th:if="${currentPage > 1}" th:href="@{'/user/specialOffers/' + ${currentPage - 1}}">Previous</a>
+                    </li>
+                    <li class="page-item" th:each="i: ${#numbers.sequence(1, totalPages)}">
+                        <a class="page-link" th:href="@{'/user/specialOffers/' + ${i}}">[[${i}]]</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" th:if="${currentPage < totalPages}" th:href="@{'/user/specialOffers/' + ${currentPage + 1}}">Next</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" th:if="${currentPage < totalPages}" th:href="@{'/user/specialOffers/' + ${totalPages}}">Last</a>
+                    </li>
+                </ul>
+            </div>
+        </ul>
+    </div>
+    </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title th:text = "${title}"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <!-- Кодировка веб-страницы -->
+  <meta charset="utf-8">
+  <div th:insert="blocks/links-bootstrap"></div>
+</head>
+<body>
+<main>
+  <div th:insert="blocks/header"></div>
+  <div class="d-flex justify-content-center">
+    <ul class="container">
+      <div class="d-flex justify-content-center">
+        <h1>Schedules</h1>
+      </div>
+      <div th:if="${schedules.isEmpty() != true}" >
+        <table class="table">
+          <thead>
+          <tr>
+<!--            <th class="nav-item dropdown">-->
+<!--              <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Film</a>-->
+<!--              <ul class="dropdown-menu">-->
+<!--                <li><a class="dropdown-item" href="/user/contacts">Contacts</a></li>-->
+<!--                <li><a class="dropdown-item" th:each="el : ${mainPages}" th:text="${el.name}" th:href="'/user/pages/'+ ${el.id} +'/info '"></a></li>-->
+<!--                <li><a class="dropdown-item" href="/user/pages">Another pages</a></li>-->
+<!--              </ul>-->
+<!--            </th>-->
+            <th scope="col">Film</th>
+            <th scope="col">City</th>
+            <th scope="col">Cinema</th>
+            <th scope="col">Hall</th>
+            <th scope="col">Date</th>
+            <th scope="col">Time</th>
+            <th scope="col">Price</th>
+            <th scope="col">Info</th>
+          </tr>
+          </thead>
+          <div th:each="el : ${schedules}">
+            <tbody>
+            <tr>
+              <td>
+                <p th:text="${el.film.name}"></p>
+              </td>
+              <td>
+                <p th:text="${el.hall.cinema.city.name}"></p>
+              </td>
+              <td>
+                <p th:text="${el.hall.cinema.name}"></p>
+              </td>
+              <td>
+                <p th:text="${el.hall.number}"></p>
+              </td>
+              <td>
+                <p th:text="${#dates.format(el.date, 'yyyy-MM-dd')}"></p>
+              </td>
+              <td>
+                <p th:text="${el.time}"></p>
+              </td>
+              <td>
+                <p th:text="${el.price}"></p>
+              </td>
+              <td>
+                <a th:href="'/user/schedules/' + ${el.id} + '/info'" class="btn btn-info">Order</a>
+              </td>
+            </tr>
+            </tbody>
+          </div>
+        </table>
+      </div>
+      <div class="d-flex justify-content-center">
+        <ul th:if="${schedules.isEmpty() == false}" class="pagination p-3" >
+          <li class="page-item">
+            <a class="page-link" th:height="100px" th:if="${currentPage > 1}" th:href="@{/user/schedules/1}">First</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" th:if="${currentPage > 1}" th:href="@{'/user/schedules/' + ${currentPage - 1}}">Previous</a>
+          </li>
+          <li class="page-item" th:each="i: ${#numbers.sequence(1, totalPages)}">
+            <a class="page-link" th:href="@{'/user/schedules/' + ${i}}">[[${i}]]</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" th:if="${currentPage < totalPages}" th:href="@{'/user/schedules/' + ${currentPage + 1}}">Next</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" th:if="${currentPage < totalPages}" th:href="@{'/user/schedules/' + ${totalPages}}">Last</a>
+          </li>
+        </ul>
+      </div>
+    </ul>
+  </div>
+  </div>
+</main>
+</body>
+</html>

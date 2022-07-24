@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text = "${title}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- Кодировка веб-страницы -->
+    <meta charset="utf-8">
+    <div th:insert="blocks/links-bootstrap"></div>
+</head>
+<body>
+<main>
+    <div th:insert="blocks/header"></div>
+    <div class="d-flex flex-nowrap">
+        <ul class="container">
+            <div class="panel blog-container">
+                <div th:object="${specialOffer}" class="panel-body">
+                    <div class="d-flex justify-content-center p-4">
+                        <h2 th:text="*{name}"></h2>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <div th:if="*{photo != null}">
+                            <img width="500px" th:src="'/img/' + *{photo}">
+                        </div>
+                        <div class="p-5" >
+                            <p class="p-2" th:text="'Description: ' + *{description}"></p>
+                            <p class="p-2" th:text="'Last updated: ' + ${date}"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ul>
+    </div>
+    </div>
+</main>
+</body>
+</html>

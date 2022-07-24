@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text = "${title}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- Кодировка веб-страницы -->
+    <meta charset="utf-8">
+    <div th:insert="blocks/links-bootstrap"></div>
+</head>
+<body>
+<main>
+    <div th:insert="blocks/header"></div>
+        <div class="container">
+            <h3 class="text-xs-center" th:text="'User: ' + ${user.username}"></h3>
+                <div th:if="${user.username} != ''" class="d-flex flex-nowrap">
+                    <p>Login:</p>
+                    <p th:text="${user.username}"></p>
+                </div>
+                <div th:if="${user.registrationDate} != null" class="d-flex flex-nowrap">
+                    <p>Registration date:</p>
+                    <p th:text="${#dates.format(user.registrationDate, 'dd-MMM-yyyy')}"></p>
+                </div>
+                <div th:if="${user.birthday} != null" class="d-flex flex-nowrap">
+                    <p>Birthday:</p>
+                    <p th:text="${#dates.format(user.birthday, 'dd-MMM-yyyy')}"></p>
+                </div>
+                <div th:if="${user.email} != ''">
+                    <div th:if="${user.email} != null" class="d-flex flex-nowrap">
+                        <p>Email:</p>
+                        <p th:text="${user.email}"></p>
+                    </div>
+                </div>
+                <div th:if="${user.phone} != ''">
+                    <div th:if="${user.phone} != null" class="d-flex flex-nowrap">
+                        <p>Phone:</p>
+                        <p th:text="${user.phone}"></p>
+                    </div>
+                </div>
+                <div th:if="${user.city} != null">
+                    <div th:if="${user.city.name} != ''" class="d-flex flex-nowrap">
+                        <p>City:</p>
+                        <p th:text="${user.city.name}"></p>
+                    </div>
+                </div>
+                <a th:href="'/user/profile/edit'" class="btn btn-warning">Edit</a>
+        </div>
+    </div>
+</main>
+</body>
+</html>

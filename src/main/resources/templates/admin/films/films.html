@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text = "${title}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- Кодировка веб-страницы -->
+    <meta charset="utf-8">
+    <div th:insert="blocks/links-bootstrap"></div>
+</head>
+<body>
+<main>
+    <div th:insert="blocks/header"></div>
+    <div class="d-flex flex-nowrap">
+        <div th:insert="blocks/slidebar"></div>
+        <ul class="container">
+            <a href="/admin/films/add" class="btn btn-success">Add</a>
+            <h3 class="text-xs-center">Films list</h3>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Movie release date</th>
+                    <th scope="col">Time</th>
+                    <th scope="col">Active</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+                </tr>
+                </thead>
+                <div th:each="el : ${films}">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <p th:text="${el.name}"></p>
+                        </td>
+                        <td>
+                            <p th:text="${#dates.format(el.movieRelease, 'yyyy-MM-dd')}"></p>
+                        </td>
+                        <td>
+                            <p th:text="${el.time}"></p>
+                        </td>
+                        <td>
+                            <p th:text="${el.active}"></p>
+                        </td>
+                        <td>
+                            <a th:href="'/admin/films/' + ${el.id} + '/edit'" class="btn btn-warning">Edit</a>
+                        </td>
+                        <td>
+                            <form th:action="'/admin/films/' + ${el.id} + '/remove'" metod="post">   <!-- method="post" данние в базу даних передаются скритно if "get" в url -->
+                                <button class="btn btn-warning" type="submit" >Delete</button>        <!--submit при нажатии на кнопку страница будет перезагружатся -->
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </div>
+            </table>
+
+            <ul th:if="${films.isEmpty() == false}" class="pagination" >
+                <li class="page-item">
+                    <a class="page-link" th:height="100px" th:if="${currentPage > 1}" th:href="@{/admin/films/1}">First</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" th:if="${currentPage > 1}" th:href="@{'/admin/films/' + ${currentPage - 1}}">Previous</a>
+                </li>
+                <li class="page-item" th:each="i: ${#numbers.sequence(1, totalPages)}">
+                    <a class="page-link" th:href="@{'/admin/films/' + ${i}}">[[${i}]]</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" th:if="${currentPage < totalPages}" th:href="@{'/admin/films/' + ${currentPage + 1}}">Next</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" th:if="${currentPage < totalPages}" th:href="@{'/admin/films/' + ${totalPages}}">Last</a>
+                </li>
+            </ul>
+        </ul>
+    </div>
+    </div>
+</main>
+</body>
+</html>

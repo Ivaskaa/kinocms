@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text = "${title}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- Кодировка веб-страницы -->
+    <meta charset="utf-8">
+    <div th:insert="blocks/links-bootstrap"></div>
+</head>
+<body>
+<main>
+    <div th:insert="blocks/header"></div>
+    <div class="d-flex flex-nowrap">
+        <ul class="container">
+            <div class="panel blog-container">
+                <div th:object="${cinema}" class="panel-body">
+                    <div class="d-flex justify-content-center p-4">
+                        <h2 th:text="*{name}"></h2>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <div th:if="*{logo != null}">
+                            <img width="500px" th:src="'/img/' + *{logo}">
+                        </div>
+                        <div class="p-5" >
+                            <p class="p-2" th:text="'Description: ' + *{description}"></p>
+                            <p class="p-2" th:text="'City: ' + *{city.name}"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div th:if="${halls.isEmpty() != true}" >
+                <h3 class="text-xs-center">Hall list</h3>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Number</th>
+                        <th scope="col">Info</th>
+                    </tr>
+                    </thead>
+                    <div th:each="el : ${halls}">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <p th:text="${el.number}"></p>
+                            </td>
+                            <td>
+                                <a th:href="'/user/hall/' + ${el.id} + '/info'" class="btn btn-info">Info</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </div>
+                </table>
+            </div>
+        </ul>
+    </div>
+    </div>
+</main>
+</body>
+</html>

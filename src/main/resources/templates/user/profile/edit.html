@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text = "${title}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- Кодировка веб-страницы -->
+    <meta charset="utf-8">
+    <div th:insert="blocks/links-bootstrap"></div>
+</head>
+<body>
+<main>
+    <div th:insert="blocks/header"></div>
+    <div class="container">
+        <h3 class="text-xs-center" th:text="'User: ' + ${user.username}"></h3>
+        <form method="post" th:object="${userForm}" class="mt-5" enctype="multipart/form-data">  <!-- method="post" данние в базу даних передаются скритно if "get" в url -->
+            <input th:value="*{username}" type="text" class="form-control mt-2" name="username" placeholder="Enter login">
+            <p style="color: red" th:if="${not #strings.isEmpty(usernameValidation)}" th:text="${usernameValidation}"></p>
+            <p style="color: red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
+            <input th:value="*{email}" type="text" class="form-control mt-2" name="email" placeholder="Enter email">
+            <p style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+            <input th:value="*{phone}" type="text" class="form-control mt-2" name="phone" placeholder="Enter phone">
+            <input th:value="${date}" type="date" class="form-control mt-2" name="birthday" placeholder="Choose birthday">
+            <div th:if="*{city} == null">
+                <select class="form-select form-select-lg mb-3  mt-2" aria-label=".form-select-lg example" name="city" >
+                    <option value="" disabled selected>Choose the city</option>
+                    <option th:each="el : ${cities}" th:value="${el.id}" th:text="${el.name}"></option>
+                </select>
+            </div>
+            <div th:if="*{city} != null">
+                <select class="form-select form-select-lg mb-3  mt-2" aria-label=".form-select-lg example" name="city" >
+                    <option value="" disabled selected>Choose the city</option>
+                    <option th:selected="*{city.name} == ${el.name}" th:each="el : ${cities}" th:value="${el.id}" th:text="${el.name}"></option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-success mt-2">Save</button>
+            <a th:href="'/user/profile/password'" class="btn btn-warning mt-2" >Change password</a>
+            <a th:href="'/user/profile/inactive'" class="btn btn-warning mt-2" >Delete profile</a>
+        </form>
+    </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login</title>
+    <title th:text = "${title}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- Кодировка веб-страницы -->
+    <meta charset="utf-8">
+    <div th:insert="blocks/links-bootstrap"></div>
+</head>
+<body>
+<!--<div th:if="${param.error}">-->
+<!--    Invalid username and password.-->
+<!--</div>-->
+<!--<div th:if="${param.logout}">-->
+<!--    You have been logged out.-->
+<!--</div>-->
+<!--<form th:action="@{/login}" method="post">-->
+<!--    <div><label> Login: <input type="text" name="username"/> </label></div>-->
+<!--    <div><label> Password: <input type="password" name="password"/> </label></div>-->
+<!--    <div><input type="submit" value="Sign In"/></div>-->
+<!--</form>-->
+
+<div>
+    <div class="container">
+        <br>
+        <br>
+        <h1>Login</h1>
+<!--        modelAttribute="userForm"-->
+        <form method="post" class="mt-5" enctype="multipart/form-data" >  <!-- method="post" данние в базу даних передаются скритно if "get" в url -->
+<!--            Добавьте тег p, цвет тега установлен на красный, а содержимое тега получено из сообщения в контроллере-->
+<!--            Используйте метод if, и встроенный инструмент в выражении переменной определяет, является ли msg пустым-->
+            <p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
+            <input type="text" name="username" placeholder="Enter login" class="form-control mt-2" >
+            <input type="password" name="password" placeholder="Enter password" class="form-control mt-2">
+            <button type="submit" class="btn btn-success mt-2">Login</button>     <!--submit при нажатии на кнопку страница будет перезагружатся и данние будут отправленние на сервер-->
+            <span>Not registered? <a href="/registration">Registration</a> </span>
+
+        </form>
+    </div>
+
+</div>
+</body>
+</html>

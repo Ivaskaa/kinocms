@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <title th:text = "${title}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- Кодировка веб-страницы -->
+    <meta charset="utf-8">
+    <div th:insert="blocks/links-bootstrap"></div>
+</head>
+<body>
+<main>
+    <div th:insert="blocks/header"></div>
+    <div class="d-flex flex-nowrap">
+        <div th:insert="blocks/slidebar"></div>
+        <div class="container">
+            <h3 class="text-xs-center">Edit user</h3>
+            <form method="post" th:object="${userForm}" class="mt-5" enctype="multipart/form-data">  <!-- method="post" данние в базу даних передаются скритно if "get" в url -->
+                <input type="text" th:value="*{username}" name="username" placeholder="Enter login" class="form-control mt-2" >
+                <p style="color: red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
+                <input type="text" th:value="*{email}" name="email" placeholder="Enter email" class="form-control mt-2">
+                <p style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+                <input type="text" th:value="*{phone}" name="phone" placeholder="Enter phone" class="form-control mt-2">
+                <div th:if="*{city} == null">
+                    <select class="form-select form-select-lg mb-3  mt-2" aria-label=".form-select-lg example" name="city" >
+                        <option value="" disabled selected>Choose the city</option>
+                        <option th:each="el : ${cities}" th:value="${el.id}" th:text="${el.name}"></option>
+                    </select>
+                </div>
+                <div th:if="*{city} != null">
+                    <select class="form-select form-select-lg mb-3  mt-2" aria-label=".form-select-lg example" name="city" >
+                        <option value="" disabled selected>Choose the city</option>
+                        <option th:selected="*{city.name} == ${el.name}" th:each="el : ${cities}" th:value="${el.id}" th:text="${el.name}"></option>
+                    </select>
+                </div>
+                <div class="d-flex flex-nowrap">
+                    <p class="m-1">Admin:</p>
+                    <div class="form-check form-switch m-1">
+                        <input type="checkbox" th:checked="${isAdmin}" name="admin" class="form-check-input" role="switch">
+                    </div>
+                </div>
+                <div class="d-flex flex-nowrap mt-1">
+                    <p class="m-1">Active:</p>
+                    <div class="form-check form-switch m-1">
+                        <input type="checkbox" th:checked="*{active}" name="active" class="form-check-input" role="switch">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success mt-2">Update</button>     <!--submit при нажатии на кнопку страница будет перезагружатся и данние будут отправленние на сервер-->
+            </form>
+        </div>
+    </div>
+</main>
+</body>
+</html>

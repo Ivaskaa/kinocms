@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text = "${title}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- Кодировка веб-страницы -->
+    <meta charset="utf-8">
+    <div th:insert="blocks/links-bootstrap"></div>
+</head>
+<body>
+<main class="d-flex flex-nowrap">
+    <div class="container">
+        <br>
+        <br>
+        <h1>Registration</h1>
+        <form method="post" th:object="${user}" class="mt-5" enctype="multipart/form-data" modelAttribute="userForm">  <!-- method="post" данние в базу даних передаются скритно if "get" в url -->
+            <!-- Добавьте тег p, цвет тега установлен на красный, а содержимое тега получено из сообщения в контроллере-->
+            <!-- Используйте метод if, и встроенный инструмент в выражении переменной определяет, является ли msg пустым-->
+            <p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
+            <input type="text" name="username" placeholder="Enter login" class="form-control mt-2" >
+            <p style="color: red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
+            <input type="password" name="password" placeholder="Enter password" class="form-control mt-2">
+            <p style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+            <input type="password" name="passwordConfirm" placeholder="Confirm password" class="form-control mt-2">
+            <button type="submit" class="btn btn-success mt-2">Register</button>     <!--submit при нажатии на кнопку страница будет перезагружатся и данние будут отправленние на сервер-->
+            <span>Already registered? <a th:href="@{login}">Login</a> </span>
+        </form>
+    </div>
+</main>
+</body>
+</html>

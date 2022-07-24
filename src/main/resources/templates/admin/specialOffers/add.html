@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text = "${title}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- Кодировка веб-страницы -->
+    <meta charset="utf-8">
+    <div th:insert="blocks/links-bootstrap"></div>
+</head>
+<body>
+<main>
+    <div th:insert="blocks/header"></div>
+    <div class="d-flex flex-nowrap">
+        <div th:insert="blocks/slidebar"></div>
+        <div class="container">
+            <h1>Add special offer</h1>
+            <form method="post" th:object="${specialOffer}" class="mt-5" enctype="multipart/form-data">  <!-- method="post" данние в базу даних передаются скритно if "get" в url -->
+
+                <input type="text" th:value="*{name}" name="name" placeholder="Enter name" class="form-control mt-2" >
+                <p style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+
+                <textarea name="description" th:text="*{description}" placeholder="Enter description" class="form-control mt-2"></textarea>
+                <p style="color: red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></p>
+
+                <input type="file" name="file" placeholder="Chose photo" class="form-control mt-2">
+
+                <button type="submit" class="btn btn-success mt-2">Add</button>     <!--submit при нажатии на кнопку страница будет перезагружатся и данние будут отправленние на сервер-->
+            </form>
+        </div>
+    </div>
+</main>
+</body>
+</html>
