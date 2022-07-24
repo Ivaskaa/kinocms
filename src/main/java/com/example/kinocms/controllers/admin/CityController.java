@@ -67,13 +67,6 @@ public class CityController {
 
     @GetMapping("/cities/add")
     public String adminCitiesAdd(Model model){
-        SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setFrom("sazb.serg@gmail.com");
-        mailMessage.setTo("cmskino@gmail.com");
-        mailMessage.setSubject("subject");
-        mailMessage.setText("message");
-        emailSender.send(mailMessage);
-
         // model
         User user = userService.loadUserByAuthentication(SecurityContextHolder.getContext().getAuthentication()); // знаходжу user в базі даних
         model.addAttribute("user", user);
