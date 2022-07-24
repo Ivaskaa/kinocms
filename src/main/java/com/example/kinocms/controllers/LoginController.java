@@ -3,6 +3,8 @@ package com.example.kinocms.controllers;
 import com.example.kinocms.entities.User;
 import com.example.kinocms.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +18,8 @@ public class LoginController {
 
     @Autowired
     private UserService userService;
+
+
 
     @GetMapping("/login")
     public String login(Model model) {
