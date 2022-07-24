@@ -7,12 +7,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class KinocmsApplicationTests {
-
-	@Autowired
-	private MailSender mailSender;
 	@Test
 	void contextLoads() {
-		mailSender.send("romagagarin422@gmail.com", "message", "message");
+
 	}
 
 }
