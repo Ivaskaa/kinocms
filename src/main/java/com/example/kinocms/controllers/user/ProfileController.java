@@ -102,7 +102,9 @@ public class ProfileController {
                 finalUser.setUsername(userForm.getUsername());
             }
         }
-        finalUser.setEmail(userForm.getEmail());
+        if(!userForm.getEmail().equals("")) {
+            finalUser.setEmail(userForm.getEmail());
+        }
         finalUser.setPhone(userForm.getPhone());
         finalUser.setBirthday(userForm.getBirthday());
         if (userForm.getCity() != null){

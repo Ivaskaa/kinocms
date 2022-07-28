@@ -21,5 +21,7 @@ public interface CinemaRepository extends JpaRepository<Cinema, Long> {
 
     @Query("SELECT c FROM Cinema c WHERE c.city = ?1")
     List<Cinema> findCinemasByCity(City city);
+    @Query("SELECT c FROM Cinema c WHERE c.active = true")
+    List<Cinema> findActiveAll();
 }
 

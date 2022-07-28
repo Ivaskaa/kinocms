@@ -36,6 +36,8 @@ public class CinemaController {
     @Autowired
     private HallService hallService;
     @Autowired
+    private HallRepository hallRepository;
+    @Autowired
     private PageService pageService;
 
     @GetMapping( "/cinemas" )              // сторінка одразе перекидає на /admin/users/1

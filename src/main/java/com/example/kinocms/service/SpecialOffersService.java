@@ -31,10 +31,18 @@ public class SpecialOffersService {
         return specialOffersRepository.findActiveAll(pageable);
     }
 
+    public Integer findActiveSpecialOffersCount() {
+        return specialOffersRepository.findActiveSpecialOffersCount();
+    }
+
     public void saveSpecialOffer(SpecialOffer specialOfferForm, MultipartFile file) throws IOException {
         SpecialOffer specialOffer = new SpecialOffer();
         specialOffer.setName(specialOfferForm.getName());
         specialOffer.setDescription(specialOfferForm.getDescription());
+        specialOffer.setUrlSEO(specialOffer.getUrlSEO());
+        specialOffer.setTitleSEO(specialOffer.getTitleSEO());
+        specialOffer.setKeywordsSEO(specialOffer.getKeywordsSEO());
+        specialOffer.setDescriptionSEO(specialOffer.getDescriptionSEO());
         specialOffer.todayDate();
         specialOffer.setActive(true);
         if(file != null && !file.getOriginalFilename().isEmpty()){      // якшо адмін передав файл
@@ -56,6 +64,10 @@ public class SpecialOffersService {
         specialOffer.setName(specialOfferForm.getName());
         specialOffer.setDescription(specialOfferForm.getDescription());
         specialOffer.setActive(specialOfferForm.isActive());
+        specialOffer.setUrlSEO(specialOffer.getUrlSEO());
+        specialOffer.setTitleSEO(specialOffer.getTitleSEO());
+        specialOffer.setKeywordsSEO(specialOffer.getKeywordsSEO());
+        specialOffer.setDescriptionSEO(specialOffer.getDescriptionSEO());
         specialOffer.todayDate();
         if(file != null && !file.getOriginalFilename().isEmpty()){      // якшо адмін передав файл
             File uploadDir = new File(uploadPath);
@@ -70,4 +82,6 @@ public class SpecialOffersService {
         }
         specialOffersRepository.save(specialOffer);
     }
+
+
 }

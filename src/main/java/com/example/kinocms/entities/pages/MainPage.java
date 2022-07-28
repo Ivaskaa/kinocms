@@ -1,4 +1,4 @@
-package com.example.kinocms.entities;
+package com.example.kinocms.entities.pages;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -6,31 +6,27 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-import java.util.Date;
+
 @Getter
 @Setter
 @Entity
-@Table(name = "news")
-public class News {
+@Table(name = "main_page")
+public class MainPage {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotEmpty(message = "Name shouldn't be empty")
-    @Size(max=255, message = "Name must be less than 255 characters")
-    private String name;
+    @Size(max=255, message = "Number must be less than 255 characters")
+    @NotEmpty(message = "Number shouldn't be empty")
+    private String firstNumber;
 
-    @Size(max=5000, message = "Description must be less than 5000 characters")
-    @NotEmpty(message = "Description shouldn't be empty")
-    private String description;
+    @Size(max=255, message = "Number must be less than 255 characters")
+    @NotEmpty(message = "Number shouldn't be empty")
+    private String secondNumber;
 
-    private String photo;
-
-    @Size(max=255, message = "Link must be less than 255 characters")
-    @NotEmpty(message = "Link shouldn't be empty")
-    private String link;
-
-    private Date date;
+    @Size(max=255, message = "Text must be less than 255 characters")
+    @NotEmpty(message = "Text shouldn't be empty")
+    private String textSEO;
 
     @Size(max=255, message = "Url must be less than 255 characters")
     @NotEmpty(message = "Url shouldn't be empty")
@@ -47,13 +43,4 @@ public class News {
     @Size(max=5000, message = "Description must be less than 5000 characters")
     @NotEmpty(message = "Description shouldn't be empty")
     private String descriptionSEO;
-
-    private boolean active;
-
-    public News() {}
-
-    public void todayDate(){
-        long time = System.currentTimeMillis();
-        this.date = new Date(time);
-    }
 }

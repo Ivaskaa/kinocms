@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mailing</title>
+
+    <style th:replace="blocks/linkAdminLTE"></style>
+    <div th:replace="blocks/links-bootstrap"></div>
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+    <div th:replace="blocks/adminSidebar"></div>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+
+        <div class="content-header">
+            <div class="container-fluid">
+                <h1 class="m-0">Mailing</h1>
+            </div>
+        </div>
+
+        <!-- Main content -->
+        <section class="content">
+            <form method="post" class="mt-5" enctype="multipart/form-data">  <!-- method="post" данние в базу даних передаются скритно if "get" в url -->
+
+                <input type="text" th:value="*{subject}" name="subject" placeholder="Enter subject" class="form-control mt-2" >
+                <p style="color: red" th:if="${not #strings.isEmpty(subjectValidation)}" th:text="${subjectValidation}"></p>
+
+                <textarea name="message" placeholder="Enter message" class="form-control mt-2" th:text="*{message}"/>
+                <p style="color: red" th:if="${not #strings.isEmpty(messageValidation)}" th:text="${messageValidation}"></p>
+
+                <div id="chose" class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                    <label class="form-check-label" for="flexRadioDefault1">
+                        Chose user
+                    </label>
+                </div>
+
+                <div id="all" class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                    <label class="form-check-label" for="flexRadioDefault2">
+                        All users
+                    </label>
+                </div>
+
+                <div id="user">
+
+                </div>
+<!--                <select class="form-select form-select-lg mb-3  mt-2" aria-label=".form-select-lg example" name="mailingUser">-->
+<!--                    <option value="" disabled selected>Choose the user</option>-->
+                    <option th:selected="${mailingUser!=null} ? (*{mailingUser.id} == ${el.id})" th:each="el : ${users}" th:value="${el.id}" th:text="${el.name}"></option>
+<!--                </select>-->
+
+                <button type="submit" class="btn btn-success mt-2">Send</button>     <!--submit при нажатии на кнопку страница будет перезагружатся и данние будут отправленние на сервер-->
+            </form>
+        </section>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+        $('#chose').on('change', function(){
+            $.get(                              // getMapping, парамтери, функція
+                "/admin/mailing/getUsers",  // Mapping контроллера
+                {}, // параметр який надсилається на контроллер
+                function(data){
+                    data = JSON.parse(data);    // переробляєм JSON в обэкти
+                    $("#user").append($("<select id=\"select\" class=\"form-select form-select-lg mb-3  mt-2\" aria-label=\".form-select-lg example\" name=\"mailingUser\">\n" +
+                        "                    <option value=\"\" disabled selected>Choose the user</option>"));
+                    data.forEach((user) =>{       // можна використовувати element, index
+                        console.log(user.id)
+                        $("#select").append($("<option value='" + user.id + "'>" + user.username + "</option>"));
+                    })
+                    $("#user").append($("</select>"));
+                })
+        })
+
+        $('#all').on('change', function(){
+            $("#select").remove();
+        })
+    })
+</script>
+
+<div th:replace="blocks/scriptAdminLTE"></div>
+
+</main>
+</body>
+</html>

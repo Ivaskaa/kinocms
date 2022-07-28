@@ -1,19 +1,30 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <title th:text = "${title}"/>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <!-- Кодировка веб-страницы -->
     <meta charset="utf-8">
-    <div th:insert="blocks/links-bootstrap"></div>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Main pages list</title>
+
+    <style th:replace="blocks/linkAdminLTE"></style>
+    <div th:replace="blocks/links-bootstrap"></div>
 </head>
-<body>
-<main>
-    <div th:insert="blocks/header"></div>
-    <div class="d-flex flex-nowrap">
-        <div th:insert="blocks/slidebar"></div>
-        <div class="container">
-            <h3 class="text-xs-center">Main pages list</h3>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+    <div th:replace="blocks/adminSidebar"></div>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+
+        <div class="content-header">
+            <div class="container-fluid">
+                <h1 class="m-0">Main pages list</h1>
+            </div>
+        </div>
+
+        <!-- Main content -->
+        <section class="content">
             <table class="table">
                 <thead>
                 <tr>
@@ -72,8 +83,12 @@
                 </div>
                 </tbody>
             </table>
+            <div class="content-header">
+                <div class="container-fluid">
+                    <h1 class="m-0">Pages list</h1>
+                </div>
+            </div>
             <a href="/admin/pages/add" class="btn btn-success">Add</a>
-            <h3 class="text-xs-center">Pages list</h3>
             <table class="table">
                 <thead>
                 <tr>
@@ -121,8 +136,12 @@
                     <a class="page-link" th:if="${currentPage < totalPages}" th:href="@{'/admin/pages/' + ${totalPages}}">Last</a>
                 </li>
             </ul>
-        </div>
+        </section>
     </div>
+</div>
+
+<div th:replace="blocks/scriptAdminLTE"></div>
+
 </main>
 </body>
 </html>

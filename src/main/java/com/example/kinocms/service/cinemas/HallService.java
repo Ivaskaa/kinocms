@@ -34,11 +34,26 @@ public class HallService {
         Pageable pageable = PageRequest.of(pageNumber - 1,5);
         return hallRepository.findAll(cinema, pageable);
     }
+    public List<Hall> findHallsByCinema(Cinema cinema) {
+        List<Hall> halls = hallRepository.findHallsByCinema(cinema);
+        return halls;
+    }
+    public List<Hall> findActiveHallsByCinema(Cinema cinema) {
+        List<Hall> halls = hallRepository.findActiveHallsByCinema(cinema);
+        return halls;
+    }
+    public void deleteHallsByCinema(Cinema cinema) {
+        hallRepository.deleteHallsByCinema(cinema);
+    }
 
     public void saveHall(Hall hallForm, MultipartFile file, Long cinemaId) throws IOException {
         Hall hall = new Hall();
         hall.setNumber(hallForm.getNumber());
         hall.setDescription(hallForm.getDescription());
+        hall.setUrlSEO(hallForm.getUrlSEO());
+        hall.setTitleSEO(hallForm.getTitleSEO());
+        hall.setKeywordsSEO(hallForm.getKeywordsSEO());
+        hall.setDescriptionSEO(hallForm.getDescriptionSEO());
         hall.setActive(true);
         if(file != null && !file.getOriginalFilename().isEmpty()){      // якшо адмін передав файл
             File uploadDir = new File(uploadPath);
@@ -67,6 +82,10 @@ public class HallService {
         Hall hall = hallRepository.findById(hallId).get();
         hall.setNumber(hallForm.getNumber());
         hall.setDescription(hallForm.getDescription());
+        hall.setUrlSEO(hallForm.getUrlSEO());
+        hall.setTitleSEO(hallForm.getTitleSEO());
+        hall.setKeywordsSEO(hallForm.getKeywordsSEO());
+        hall.setDescriptionSEO(hallForm.getDescriptionSEO());
         hall.setActive(hallForm.isActive());
         if(file != null && !file.getOriginalFilename().isEmpty()){      // якшо адмін передав файл
             File uploadDir = new File(uploadPath);
@@ -95,8 +114,4 @@ public class HallService {
         return null;
     }
 
-    public List<Hall> findHallsByCinema(Cinema cinema) {
-        List<Hall> halls = hallRepository.findHallsByCinema(cinema);
-        return halls;
-    }
 }

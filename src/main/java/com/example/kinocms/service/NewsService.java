@@ -33,11 +33,19 @@ public class NewsService {
         return newsRepository.findActiveAll(pageable);
     }
 
+    public Integer findActiveNewsCount() {
+        return newsRepository.findActiveNewsCount();
+    }
+
     public void saveNews(News newsForm, MultipartFile file) throws IOException {
         News news = new News();
         news.setName(newsForm.getName());
         news.setDescription(newsForm.getDescription());
         news.setLink(newsForm.getLink());
+        news.setUrlSEO(newsForm.getUrlSEO());
+        news.setTitleSEO(newsForm.getTitleSEO());
+        news.setKeywordsSEO(newsForm.getKeywordsSEO());
+        news.setDescriptionSEO(newsForm.getDescriptionSEO());
         news.todayDate();
         news.setActive(true);
         if(file != null && !file.getOriginalFilename().isEmpty()){      // якшо адмін передав файл
@@ -59,6 +67,10 @@ public class NewsService {
         news.setName(newsForm.getName());
         news.setDescription(newsForm.getDescription());
         news.setLink(newsForm.getLink());
+        news.setUrlSEO(newsForm.getUrlSEO());
+        news.setTitleSEO(newsForm.getTitleSEO());
+        news.setKeywordsSEO(newsForm.getKeywordsSEO());
+        news.setDescriptionSEO(newsForm.getDescriptionSEO());
         news.setActive(newsForm.isActive());
         news.todayDate();
         if(file != null && !file.getOriginalFilename().isEmpty()){
@@ -74,6 +86,7 @@ public class NewsService {
         }
         newsRepository.save(news);
     }
+
 
 
 }

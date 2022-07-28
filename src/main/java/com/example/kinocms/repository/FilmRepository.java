@@ -14,6 +14,8 @@ public interface FilmRepository extends JpaRepository<Film, Long> {
 
     @Query("SELECT f FROM Film f WHERE f.active = true")
     Page<Film> findActiveAll(Pageable pageable);
+    @Query("SELECT count(f) FROM Film f WHERE f.active = true")
+    String findCountFilms();
 
 //    @Query("select e from Employees e where e.salary > :salary")
 //    List<Employees> findEmployeesWithMoreThanSalary(@Param("salary") Long salary, Sort sort);

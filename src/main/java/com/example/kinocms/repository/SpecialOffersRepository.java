@@ -14,4 +14,6 @@ public interface SpecialOffersRepository extends JpaRepository<SpecialOffer, Lon
     Page<SpecialOffer> findAll(Pageable pageable);
     @Query("SELECT so FROM SpecialOffer so WHERE so.active = true")
     Page<SpecialOffer> findActiveAll(Pageable pageable);
+    @Query("SELECT count(so) FROM SpecialOffer so WHERE so.active = true")
+    Integer findActiveSpecialOffersCount();
 }

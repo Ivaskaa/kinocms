@@ -1,20 +1,32 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title th:text = "${title}"/>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <!-- Кодировка веб-страницы -->
-    <meta charset="utf-8">
-    <div th:insert="blocks/links-bootstrap"></div>
-</head>
-<body>
-<main>
-    <div th:insert="blocks/header"></div>
-    <div class="d-flex flex-nowrap">
-        <div th:insert="blocks/slidebar"></div>
-        <div class="container">
-            <h3 class="text-xs-center">Users list</h3>
 
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>User list</title>
+
+    <style th:replace="blocks/linkAdminLTE"></style>
+    <div th:replace="blocks/links-bootstrap"></div>
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+    <div th:replace="blocks/adminSidebar"></div>
+    <div th:insert="blocks/scriptAdminLte"></div>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <h1 class="text-xs-center">Users list</h1>
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
             <table class="table">
                 <thead>
                 <tr>
@@ -48,7 +60,7 @@
                             <p th:text="${el.phone}"></p>
                         </td>
                         <td>
-<!--                            <p th:text="${el.roles[0]} + ', ' + ${el.roles[1]}"></p>-->
+        <!--                            <p th:text="${el.roles[0]} + ', ' + ${el.roles[1]}"></p>-->
                             <div th:each="role : ${el.roles}">
                                 <p th:text="${role.name}"></p>
                             </div>
@@ -85,8 +97,12 @@
                     <a class="page-link" th:if="${currentPage < totalPages}" th:href="@{'/admin/users/' + ${totalPages}}">Last</a>
                 </li>
             </ul>
-        </div>
+        </section>
     </div>
+</div>
+
+<div th:insert="blocks/scriptAdminLte"></div>
+
 </main>
 </body>
 </html>

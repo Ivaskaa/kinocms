@@ -1,20 +1,30 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <title th:text = "${title}"/>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <!-- Кодировка веб-страницы -->
     <meta charset="utf-8">
-    <div th:insert="blocks/links-bootstrap"></div>
-    <link rel="stylesheet" href="bootstrap_min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Edit news</title>
+
+    <style th:replace="blocks/linkAdminLTE"></style>
+    <div th:replace="blocks/links-bootstrap"></div>
 </head>
-<body>
-<main>
-    <div th:insert="blocks/header"></div>
-    <div class="d-flex flex-nowrap">
-        <div th:insert="blocks/slidebar"></div>
-        <div class="container">
-            <h3 class="text-xs-center">Edit news</h3>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+    <div th:replace="blocks/adminSidebar"></div>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+
+        <div class="content-header">
+            <div class="container-fluid">
+                <h1 class="m-0">Edit news</h1>
+            </div>
+        </div>
+
+        <!-- Main content -->
+        <section class="content">
             <form method="post" th:object="${news}" class="mt-5" enctype="multipart/form-data">  <!-- method="post" данние в базу даних передаются скритно if "get" в url -->
 
                 <input type="text" th:value="*{name}" name="name" placeholder="Enter name" class="form-control mt-2" >
@@ -28,6 +38,21 @@
                 <input type="text" th:value="*{link}" name="link" placeholder="Enter youtube link" class="form-control mt-2">
                 <p style="color: red" th:if="${#fields.hasErrors('link')}" th:errors="*{link}"></p>
 
+                <br><br>
+                <h4>SEO:</h4>
+
+                <input type="text" th:value="*{urlSEO}" name="urlSEO" placeholder="Enter SEO url" class="form-control mt-2" >
+                <p style="color: red" th:if="${#fields.hasErrors('urlSEO')}" th:errors="*{urlSEO}"></p>
+
+                <input type="text" th:value="*{titleSEO}" name="titleSEO" placeholder="Enter SEO title" class="form-control mt-2" >
+                <p style="color: red" th:if="${#fields.hasErrors('titleSEO')}" th:errors="*{titleSEO}"></p>
+
+                <input type="text" th:value="*{keywordsSEO}" name="keywordsSEO" placeholder="Enter SEO keywords" class="form-control mt-2" >
+                <p style="color: red" th:if="${#fields.hasErrors('keywordsSEO')}" th:errors="*{keywordsSEO}"></p>
+
+                <textarea name="descriptionSEO" placeholder="Enter SEO description" class="form-control mt-2" th:text="*{descriptionSEO}" />
+                <p style="color: red" th:if="${#fields.hasErrors('descriptionSEO')}" th:errors="*{descriptionSEO}"></p>
+
                 <div class="d-flex flex-nowrap mt-2">
                     <p class="m-1">Active:</p>
                     <div class="form-check form-switch m-1">
@@ -37,8 +62,12 @@
 
                 <button type="submit" class="btn btn-success mt-2">Update</button>     <!--submit при нажатии на кнопку страница будет перезагружатся и данние будут отправленние на сервер-->
             </form>
-        </div>
+        </section>
     </div>
+</div>
+
+<div th:replace="blocks/scriptAdminLTE"></div>
+
 </main>
 </body>
 </html>

@@ -1,10 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Edit main page</title>
+
+    <style th:replace="blocks/linkAdminLTE"></style>
+    <div th:replace="blocks/links-bootstrap"></div>
 </head>
-<body>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+    <div th:replace="blocks/adminSidebar"></div>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <h1 class="m-0">Edit main page</h1>
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <form method="post" th:object="${mainPage}" class="mt-5" enctype="multipart/form-data">  <!-- method="post" данние в базу даних передаются скритно if "get" в url -->
+
+                <input type="text" th:value="*{firstNumber}" name="firstNumber" placeholder="Enter first number" class="form-control mt-2" >
+                <p style="color: red" th:if="${#fields.hasErrors('firstNumber')}" th:errors="*{firstNumber}"></p>
+                <p style="color: red" th:if="${not #strings.isEmpty(firstNumberValidation)}" th:text="${firstNumberValidation}"></p>
+
+                <input type="text" th:value="*{secondNumber}" name="secondNumber" placeholder="Enter second number" class="form-control mt-2" >
+                <p style="color: red" th:if="${#fields.hasErrors('secondNumber')}" th:errors="*{secondNumber}"></p>
+                <p style="color: red" th:if="${not #strings.isEmpty(secondNumberValidation)}" th:text="${secondNumberValidation}"></p>
+
+                <br><br>
+                <h4>SEO:</h4>
+
+                <textarea name="textSEO" placeholder="Enter SEO text" class="form-control mt-2" th:text="*{textSEO}" />
+                <p style="color: red" th:if="${#fields.hasErrors('textSEO')}" th:errors="*{textSEO}"></p>
+
+                <input type="text" th:value="*{urlSEO}" name="urlSEO" placeholder="Enter SEO url" class="form-control mt-2" >
+                <p style="color: red" th:if="${#fields.hasErrors('urlSEO')}" th:errors="*{urlSEO}"></p>
+
+                <input type="text" th:value="*{titleSEO}" name="titleSEO" placeholder="Enter SEO title" class="form-control mt-2" >
+                <p style="color: red" th:if="${#fields.hasErrors('titleSEO')}" th:errors="*{titleSEO}"></p>
+
+                <input type="text" th:value="*{keywordsSEO}" name="keywordsSEO" placeholder="Enter SEO keywords" class="form-control mt-2" >
+                <p style="color: red" th:if="${#fields.hasErrors('keywordsSEO')}" th:errors="*{keywordsSEO}"></p>
+
+                <textarea name="descriptionSEO" placeholder="Enter SEO description" class="form-control mt-2" th:text="*{descriptionSEO}" />
+                <p style="color: red" th:if="${#fields.hasErrors('descriptionSEO')}" th:errors="*{descriptionSEO}"></p>
+
+                <button type="submit" class="btn btn-success mt-2">Update</button>     <!--submit при нажатии на кнопку страница будет перезагружатся и данние будут отправленние на сервер-->
+            </form>
+        </section>
+    </div>
+</div>
+
+<div th:insert="blocks/scriptAdminLte"></div>
 
 </body>
 </html>

@@ -23,7 +23,6 @@ import java.util.List;
 @Controller
 @RequestMapping("/admin")  //для всього NewsController
 public class FilmController {
-
     @Autowired
     private UserService userService;
     @Autowired

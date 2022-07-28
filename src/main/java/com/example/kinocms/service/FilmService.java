@@ -33,12 +33,21 @@ public class FilmService {
         Pageable pageable = PageRequest.of(pageNumber - 1,5);
         return filmRepository.findActiveAll(pageable);
     }
+
+    public String findCountFilms() {
+        return filmRepository.findCountFilms();
+    }
+
     public void saveFilm(Film filmForm, MultipartFile file) throws IOException {
         Film film = new Film();
         film.setName(filmForm.getName());
         film.setDescription(filmForm.getDescription());
         film.setTime(filmForm.getTime());
         film.setLink(filmForm.getLink());
+        film.setUrlSEO(filmForm.getUrlSEO());
+        film.setTitleSEO(filmForm.getTitleSEO());
+        film.setKeywordsSEO(filmForm.getKeywordsSEO());
+        film.setDescriptionSEO(filmForm.getDescriptionSEO());
         film.setActive(true);
         System.out.println(filmForm.getMovieRelease());
         film.setMovieRelease(filmForm.getMovieRelease());
@@ -62,6 +71,10 @@ public class FilmService {
         film.setDescription(filmForm.getDescription());
         film.setTime(filmForm.getTime());
         film.setLink(filmForm.getLink());
+        film.setUrlSEO(filmForm.getUrlSEO());
+        film.setTitleSEO(filmForm.getTitleSEO());
+        film.setKeywordsSEO(filmForm.getKeywordsSEO());
+        film.setDescriptionSEO(filmForm.getDescriptionSEO());
         film.setActive(filmForm.isActive());
         film.setMovieRelease(filmForm.getMovieRelease());
         if(file != null && !file.getOriginalFilename().isEmpty()){
@@ -126,6 +139,7 @@ public class FilmService {
         }
         return null;
     }
+
 
 
 }

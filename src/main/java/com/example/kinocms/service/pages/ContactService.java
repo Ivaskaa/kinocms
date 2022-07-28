@@ -43,6 +43,10 @@ public class ContactService {
         contact.setCinema(contactForm.getCinema());
         contact.setAddress(contactForm.getAddress());
         contact.setActive(true);
+        contact.setUrlSEO(contactForm.getUrlSEO());
+        contact.setTitleSEO(contactForm.getTitleSEO());
+        contact.setKeywordsSEO(contactForm.getKeywordsSEO());
+        contact.setDescriptionSEO(contactForm.getDescriptionSEO());
         contactRepository.save(contact);
     }
 
@@ -52,6 +56,10 @@ public class ContactService {
         contact.setCinema(contactForm.getCinema());
         contact.setAddress(contactForm.getAddress());
         contact.setActive(contactForm.isActive());
+        contact.setUrlSEO(contactForm.getUrlSEO());
+        contact.setTitleSEO(contactForm.getTitleSEO());
+        contact.setKeywordsSEO(contactForm.getKeywordsSEO());
+        contact.setDescriptionSEO(contactForm.getDescriptionSEO());
         contactRepository.save(contact);
     }
 

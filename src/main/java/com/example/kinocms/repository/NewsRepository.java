@@ -12,4 +12,6 @@ public interface NewsRepository extends JpaRepository<News, Long> {    // JpaRep
     Page<News> findAll(Pageable pageable);
     @Query("SELECT n FROM News n WHERE n.active = true")
     Page<News> findActiveAll(Pageable pageable);
+    @Query("SELECT count(n) FROM News n WHERE n.active = true")
+    Integer findActiveNewsCount();
 }

@@ -29,6 +29,10 @@ public class ScheduleService {
         return scheduleRepository.findActivePage(pageable);
     }
 
+    public String findCountSchedules() {
+        return scheduleRepository.findCountSchedules();
+    }
+
     public List<Schedule> findSchedulesByHall(Hall hall) {
         return scheduleRepository.findSchedulesByHall(hall);
     }

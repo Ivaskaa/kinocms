@@ -1,0 +1,172 @@
+
+<div class="container">
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark" aria-label="Main navigation">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/user">KinoCMS</a>
+            <button class="navbar-toggler p-0 border-0" type="button" id="navbarSideCollapse" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="">Someverylongtex</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/user/films">Films</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/user/cinemas">Cinemas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/user/schedules">Schedules</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/user/news">News</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/user/specialOffers">Special offers</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Pages</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/user/contacts">Contacts</a></li>
+                            <li><a class="dropdown-item" th:each="el : ${mainPages}" th:text="${el.name}" th:href="'/user/pages/'+ ${el.id} +'/info '"></a></li>
+                            <li><a class="dropdown-item" href="/user/pages">Another pages</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <div th:if="${auth != null}">
+                    <div th:if="${auth.getName()} == 'anonymousUser'">
+                        <a th:href="@{/login}" class="btn btn-primary">Login</a>
+                        <a th:href="@{/registration}" class="btn btn-primary">Registration</a>
+                    </div>
+                </div>
+                <div th:if="${auth == null}">
+                    <div th:if="${user.username} != 'anonymousUser'" class="d-flex flex-nowrap">
+                        <div th:each="el : ${user.roles}" >
+                            <div th:if="${el.name} == 'ROLE_ADMIN'">
+                                <a th:href="@{/admin}" class="btn btn-primary">Admin panel</a>
+                            </div>
+                            <div th:if="${el.name} == 'ROLE_USER'">
+                                <a th:href="'/user/profile/'" class="btn btn-primary">Profile Setting</a>
+                            </div>
+                        </div>
+                        <form action="/logout" method="post">
+                            <input class="btn btn-primary" type="submit" value="Logout">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+<br><br><br>
+
+<!-- Preloader -->
+<div class="preloader flex-column justify-content-center align-items-center">
+    <img class="animation__shake" src="/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+</div>
+
+<!-- Main Sidebar Container -->
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="/user" class="brand-link">
+        <img src="/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-light">KinoCMS</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <!-- Add icons to the links using the .nav-icon class
+                     with font-awesome or any other icon font library -->
+                <li class="nav-item">
+                    <a href="/admin" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Statistics
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/films" class="nav-link">
+                        <i class="nav-icon far fa-image"></i>
+                        <p>
+                            Films
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/cinemas" class="nav-link">
+                        <i class="nav-icon fas fa-columns"></i>
+                        <p>
+                            Cinemas
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/schedules" class="nav-link">
+                        <i class="nav-icon far fa-calendar-alt"></i>
+                        <p>
+                            Schedules
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/news" class="nav-link">
+                        <i class="nav-icon far fa-newspaper"></i>
+                        <p>
+                            News
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/specialOffers" class="nav-link">
+                        <i class="nav-icon far fa-plus-square"></i>
+                        <p>
+                            Special offer
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/pages" class="nav-link">
+                        <i class="nav-icon fas fa-book"></i>
+                        <p>
+                            Pages
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/users" class="nav-link">
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>
+                            Users
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/cities" class="nav-link">
+                        <i class="nav-icon fas fa-city"></i>
+                        <p>
+                            Cities
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/mailing" class="nav-link">
+                        <i class="nav-icon far fa-envelope"></i>
+                        <p>
+                            Mailing
+                        </p>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+    </div>
+</aside>

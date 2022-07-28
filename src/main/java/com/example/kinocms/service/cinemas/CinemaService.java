@@ -35,6 +35,11 @@ public class CinemaService {
         return cinemaRepository.findActive(pageable);
     }
 
+    public List<Cinema> findActiveAll() {
+        List<Cinema> cinemas = cinemaRepository.findActiveAll();
+        return cinemas;
+    }
+
     public List<Cinema> findCinemasByCity(City city){
         List<Cinema> cinemas = cinemaRepository.findCinemasByCity(city);
         return cinemas;
@@ -52,6 +57,10 @@ public class CinemaService {
         cinema.setName(cinemaForm.getName());
         cinema.setDescription(cinemaForm.getDescription());
         cinema.setCity(cinemaForm.getCity());
+        cinema.setUrlSEO(cinemaForm.getUrlSEO());
+        cinema.setTitleSEO(cinemaForm.getTitleSEO());
+        cinema.setKeywordsSEO(cinemaForm.getKeywordsSEO());
+        cinema.setDescriptionSEO(cinemaForm.getDescriptionSEO());
         cinema.setActive(true);
         if(file != null && !file.getOriginalFilename().isEmpty()){      // якшо адмін передав файл
             File uploadDir = new File(uploadPath);
@@ -73,6 +82,10 @@ public class CinemaService {
         cinema.setCity(cinemaForm.getCity());
         cinema.setActive(cinemaForm.isActive());
         cinema.setDescription(cinemaForm.getDescription());
+        cinema.setUrlSEO(cinemaForm.getUrlSEO());
+        cinema.setTitleSEO(cinemaForm.getTitleSEO());
+        cinema.setKeywordsSEO(cinemaForm.getKeywordsSEO());
+        cinema.setDescriptionSEO(cinemaForm.getDescriptionSEO());
         if(file != null && !file.getOriginalFilename().isEmpty()){
             File uploadDir = new File(uploadPath);
             if(!uploadDir.exists()){
@@ -86,6 +99,7 @@ public class CinemaService {
         }
         cinemaRepository.save(cinema);
     }
+
 
 
 }

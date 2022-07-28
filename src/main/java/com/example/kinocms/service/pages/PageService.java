@@ -46,6 +46,10 @@ public class PageService {
         page.setName(pageForm.getName());
         page.setDescription(pageForm.getDescription());
         page.setMainPage(pageForm.isMainPage());
+        page.setUrlSEO(pageForm.getUrlSEO());
+        page.setTitleSEO(pageForm.getTitleSEO());
+        page.setKeywordsSEO(pageForm.getKeywordsSEO());
+        page.setDescriptionSEO(pageForm.getDescriptionSEO());
         page.setActive(true);
         if(file != null && !file.getOriginalFilename().isEmpty()){      // якшо адмін передав файл
             File uploadDir = new File(uploadPath);
@@ -66,6 +70,10 @@ public class PageService {
         page.setName(pageForm.getName());
         page.setDescription(pageForm.getDescription());
         page.setMainPage(pageForm.isMainPage());
+        page.setUrlSEO(pageForm.getUrlSEO());
+        page.setTitleSEO(pageForm.getTitleSEO());
+        page.setKeywordsSEO(pageForm.getKeywordsSEO());
+        page.setDescriptionSEO(pageForm.getDescriptionSEO());
         page.setActive(pageForm.isActive());
         if(file != null && !file.getOriginalFilename().isEmpty()){
             File uploadDir = new File(uploadPath);

@@ -22,6 +22,6 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
     List<Schedule> findSchedulesByFilm(Film film);
     @Query("SELECT s FROM Schedule s WHERE s.hall = ?1 and s.active = true")
     List<Schedule> findSchedulesByHall(Hall hall);
-
-
+    @Query("SELECT count(s) FROM Schedule s where s.active = true")
+    String findCountSchedules();
 }

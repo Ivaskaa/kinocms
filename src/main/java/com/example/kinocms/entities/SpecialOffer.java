@@ -1,23 +1,49 @@
 package com.example.kinocms.entities;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "special_offers")
 public class SpecialOffer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     @NotEmpty(message = "Name shouldn't be empty")
-    @Size(min=2, max=30, message = "Name must be between 2 and 30 characters")
+    @Size(max=255, message = "Name must be less than 255 characters")
     private String name;
+
+    @Size(max=5000, message = "Description must be less than 5000 characters")
     @NotEmpty(message = "Description shouldn't be empty")
     private String description;
+
     private String photo;
     private Date date;
+
+    @Size(max=255, message = "Url must be less than 255 characters")
+    @NotEmpty(message = "Url shouldn't be empty")
+    private String urlSEO;
+
+    @Size(max=255, message = "Title must be less than 255 characters")
+    @NotEmpty(message = "Title shouldn't be empty")
+    private String titleSEO;
+
+    @Size(max=255, message = "Keywords must be less than 255 characters")
+    @NotEmpty(message = "Keywords shouldn't be empty")
+    private String keywordsSEO;
+
+    @Size(max=5000, message = "Description must be less than 5000 characters")
+    @NotEmpty(message = "Description shouldn't be empty")
+    private String descriptionSEO;
+
     private boolean active;
 
     public SpecialOffer() {}
@@ -25,53 +51,5 @@ public class SpecialOffer {
     public void todayDate(){
         long time = System.currentTimeMillis();
         this.date = new Date(time);
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
     }
 }

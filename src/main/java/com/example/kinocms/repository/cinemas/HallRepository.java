@@ -21,8 +21,16 @@ public interface HallRepository extends JpaRepository<Hall, Long> {
 
     @Query("SELECT h FROM Hall h WHERE h.cinema = ?1")
     List<Hall> findHallsByCinema(Cinema cinema);
+
+    @Query("SELECT h FROM Hall h WHERE h.cinema = ?1 and h.active = true")
+    List<Hall> findActiveHallsByCinema(Cinema cinema);
     @Transactional
     @Modifying
     @Query("DELETE FROM Hall h WHERE h.id = ?1")
     void myDeleteById(Long hallId);
+
+    @Transactional
+    @Modifying
+    @Query("DELETE FROM Hall h WHERE h.cinema = ?1")
+    void deleteHallsByCinema(Cinema cinema);
 }

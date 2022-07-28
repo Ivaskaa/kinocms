@@ -1,12 +1,16 @@
 package com.example.kinocms.entities;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.Set;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "cinemas")
 public class Cinema {
@@ -14,77 +18,39 @@ public class Cinema {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @NotEmpty(message = "Name shouldn't be empty")
-    @Size(min=2, max=30, message = "Name must be between 2 and 30 characters")
+    @Size(max=255, message = "Name must be less than 255 characters")
     private String name;
+    @Size(max=5000, message = "Description must be less than 5000 characters")
     @NotEmpty(message = "Description shouldn't be empty")
     private String description;
     private String logo;
+
     @JoinColumn(name = "cinema_id")
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @JsonManagedReference
     private Set<Hall> halls;
     @JoinColumn
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     private City city;
+
+    @Size(max=255, message = "Url must be less than 255 characters")
+    @NotEmpty(message = "Url shouldn't be empty")
+    private String urlSEO;
+
+    @Size(max=255, message = "Title must be less than 255 characters")
+    @NotEmpty(message = "Title shouldn't be empty")
+    private String titleSEO;
+
+    @Size(max=255, message = "Keywords must be less than 255 characters")
+    @NotEmpty(message = "Keywords shouldn't be empty")
+    private String keywordsSEO;
+
+    @Size(max=5000, message = "Description must be less than 5000 characters")
+    @NotEmpty(message = "Description shouldn't be empty")
+    private String descriptionSEO;
     private boolean active;
 
     public Cinema() {}
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getLogo() {
-        return logo;
-    }
-
-    public void setLogo(String logo) {
-        this.logo = logo;
-    }
-
-    public Set<Hall> getHalls() {
-        return halls;
-    }
-
-    public void setHalls(Set<Hall> halls) {
-        this.halls = halls;
-    }
-
-    public City getCity() {
-        return city;
-    }
-
-    public void setCity(City city) {
-        this.city = city;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
 
     @Override
     public String toString() {

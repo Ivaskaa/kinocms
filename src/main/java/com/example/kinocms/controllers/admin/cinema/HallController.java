@@ -136,7 +136,7 @@ public class HallController {
             @PathVariable(value = "id") Long id,
             @PathVariable(value = "hallId") Long hallId
     ){
-        hallRepository.myDeleteById(hallId); // FIXME: 18.07.2022
+        hallRepository.deleteById(hallId); // FIXME: 18.07.2022
         return "redirect:/admin/cinemas/" + id + "/edit";
     }
 }

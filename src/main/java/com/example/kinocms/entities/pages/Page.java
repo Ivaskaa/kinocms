@@ -1,9 +1,13 @@
 package com.example.kinocms.entities.pages;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-
+@Getter
+@Setter
 @Entity
 @Table(name = "pages")
 public class Page {
@@ -11,62 +15,37 @@ public class Page {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Size(max=255, message = "Name must be less than 255 characters")
     @NotEmpty(message = "Name shouldn't be empty")
-    @Size(min=2, max=30, message = "Name must be between 2 and 30 characters")
     private String name;
+
+    @Size(max=5000, message = "Description must be less than 5000 characters")
     @NotEmpty(message = "Description shouldn't be empty")
     private String description;
+
     private String photo;
+
+    @Size(max=255, message = "Url must be less than 255 characters")
+    @NotEmpty(message = "Url shouldn't be empty")
+    private String urlSEO;
+
+    @Size(max=255, message = "Title must be less than 255 characters")
+    @NotEmpty(message = "Title shouldn't be empty")
+    private String titleSEO;
+
+    @Size(max=255, message = "Keywords must be less than 255 characters")
+    @NotEmpty(message = "Keywords shouldn't be empty")
+    private String keywordsSEO;
+
+    @Size(max=5000, message = "Description must be less than 5000 characters")
+    @NotEmpty(message = "Description shouldn't be empty")
+    private String descriptionSEO;
+
     private boolean active;
+
     private boolean mainPage;
 
     public Page() {}
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    public boolean isMainPage() {
-        return mainPage;
-    }
-
-    public void setMainPage(boolean mainPage) {
-        this.mainPage = mainPage;
-    }
 }

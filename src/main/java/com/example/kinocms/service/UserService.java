@@ -33,6 +33,16 @@ public class UserService implements UserDetailsService {
         Pageable pageable = PageRequest.of(pageNumber - 1,5);
         return userRepository.findAll(pageable);
     }
+    public String findCountUsers() {
+        return userRepository.findCountUsers();
+    }
+    public String findCountActiveUsers() {
+        return userRepository.findCountActiveUsers();
+    }
+    public List<User> findUserByWriteEmail() {
+        List<User> users = userRepository.findUserByWriteEmail();
+        return users;
+    }
 
     @Override               // знаходить за username           
     public User loadUserByUsername(String username) throws UsernameNotFoundException {
